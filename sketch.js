@@ -40,19 +40,19 @@ function draw() {
   
   if (gameState === "play") {
     
-    if(keyDown("")){
+    if(keyDown("left_arrow")){
         ghost.x = ghost.x - 3;
 
       // escreva o código para mover para a esquerda quando a tecla para a esquerda for pressionada
     }
-    if(keyDown("")){
+    if(keyDown("right_arrow")){
   
           ghost.x = ghost.x + 3;
 
       // escreva o código para mover para a direita quando a tecla para a direita for pressionada
       
     }
-    if(keyDown("")){
+    if(keyDown("space")){
   
          ghost.velocityY = -10;
 
@@ -63,7 +63,9 @@ function draw() {
   ghost.velocityY = ghost.velocityY + 0.8;
   
    
-      //escreva uma condição para a torre de rolagem infinita
+      if(tower.y > 400){
+        tower.y = 300 
+      }
     
       spawnDoors();
 
@@ -73,8 +75,8 @@ function draw() {
       ghost.velocityY = 0;
     }
     if(invisibleBlockGroup.isTouching(ghost) || ghost.y > 600){
-      ghost.
-      gameState = ""
+      ghost.destroy();
+      gameState = "end"
     }
     
   
@@ -97,8 +99,11 @@ function spawnDoors()
     var invisibleBlock = createSprite(200,15);
     invisibleBlock.width = climber.width;
     invisibleBlock.height = 2;
-    //adicione a função aleatória
-    //
+    
+    door.x = Math.round(random(120,400));
+    climber.x = door.x;
+    invisibleBlock.x = door.x;
+    
     door.addImage(doorImg);
     climber.addImage(climberImg);
     
@@ -112,11 +117,9 @@ function spawnDoors()
 ghost.depth = door.depth;
     ghost.depth =1;
     
-    //atribuir tempo de vida para a porta, escalador e bloco invisível
-
- .lifetime = 800;
-    .lifetime = 800;
-    .lifetime = 800;
+    door.lifetime = 800;
+    climber.lifetime = 800;
+    invisibleBlock.lifetime = 800;
     //adicione cada obstáculo ao grupo obstaclesGroup.add(obstacle); aqui os obstáculos são as portas, o escalador e o bloco invisível
     
      doorsGroup.add();
